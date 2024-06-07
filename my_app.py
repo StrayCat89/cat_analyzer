@@ -9,10 +9,10 @@ app = Flask(__name__)
 @app.route('/')
 def serve_index():
     try:
-        print("Serving index.html")
-        return send_from_directory('.', 'index.html')
+        print("Serving index2.html")
+        return send_from_directory('.', 'index2.html')
     except Exception as e:
-        print(f"Error serving index.html: {e}")
+        print(f"Error serving index2.html: {e}")
         return jsonify({"error": str(e)}), 500
 
 @app.route('/api/analyze_image', methods=['POST'])
@@ -39,4 +39,3 @@ if __name__ != '__main__':
 else:
     print("Running the app...")
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))
-# comment
