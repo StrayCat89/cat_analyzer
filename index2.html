@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            color: #4a4a8c;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 300px;
+        }
+        label, input, button {
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px;
+            background-color: #4a4a8c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3a3a6c;
+        }
+        #result {
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Cat Analyzer</h1>
+    <form id="analyze-form">
+        <label for="image-url">Image URL:</label>
+        <input type="text" id="image-url" name="image-url" required>
+        <label for="prompt">Prompt:</label>
+        <input type="text" id="prompt" name="prompt" required>
+        <button type="submit">Analyze</button>
+    </form>
+    <div id="result"></div>
+    <script>
+        document.getElementById('analyze-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const imageUrl = document.getElementById('image-url').value;
+            const prompt = document.getElementById('prompt').value;
+            const response = await fetch('/api/analyze_image', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ image_url: imageUrl, prompt: prompt })
+            });
+            const result = await response.json();
+            document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+        });
+    </script>
+</body>
+</html>
