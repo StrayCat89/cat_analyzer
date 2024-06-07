@@ -29,8 +29,10 @@ def analyze_image():
         api_response = response.json()
         print(f"Response from API: {api_response}")
 
-        # Assuming the API response contains the answer under the key 'answer'
-        return jsonify({"answer": api_response['answer']})
+        # Extract the answer from the API response and ensure it's in the correct format
+        answer = api_response.get('answer', 'No answer found')
+        
+        return jsonify({"answer": answer})
     except Exception as e:
         print(f"Error in analyze_image: {e}")
         return jsonify({"error": str(e)}), 500
