@@ -26,9 +26,11 @@ def analyze_image():
         response = requests.post("https://michaelbutler.app.modelbit.com/v1/prompt_llava/latest",
                                  json={"data": [image_url, prompt]})
         response.raise_for_status()
-        print(f"Response from API: {response.json()}")
+        api_response = response.json()
+        print(f"Response from API: {api_response}")
 
-        return jsonify(response.json())
+        # Assuming the API response contains the answer under the key 'answer'
+        return jsonify({"answer": api_response['answer']})
     except Exception as e:
         print(f"Error in analyze_image: {e}")
         return jsonify({"error": str(e)}), 500

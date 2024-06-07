@@ -82,7 +82,7 @@
             });
             
             const result = await response.json();
-            document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+            document.getElementById('result').textContent = `Answer: ${result.answer}`;
         });
     </script>
 </body>
