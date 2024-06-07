@@ -29,11 +29,8 @@ def analyze_image():
         api_response = response.json()
         print(f"Response from API: {api_response}")
 
-        # Extract the 'answer' field or the actual response from the API
-        answer = api_response.get('answer', None)
-        if not answer:
-            # Assuming the actual text might be directly under a different key
-            answer = api_response.get('result', 'No answer found')
+        # Extract the relevant part of the response
+        answer = api_response.get('result', api_response.get('answer', 'No answer found'))
         
         return jsonify({"answer": answer})
     except Exception as e:
