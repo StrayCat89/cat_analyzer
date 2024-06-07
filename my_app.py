@@ -45,4 +45,4 @@ if __name__ != '__main__':
     app = app
 else:
     print("Running the app...")
-    app.ru
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))
