@@ -41,6 +41,16 @@
         #result {
             margin-top: 20px;
             white-space: pre-wrap;
+            background-color: #e0e0e0;
+            padding: 10px;
+            border-radius: 5px;
+            width: 80%;
+        }
+        #image-preview {
+            margin-top: 20px;
+            max-width: 100%;
+            border: 2px solid #4a4a8c;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -53,17 +63,24 @@
         <input type="text" id="prompt" name="prompt" required>
         <button type="submit">Analyze</button>
     </form>
+    <div id="image-container">
+        <img id="image-preview" src="" alt="Image Preview">
+    </div>
     <div id="result"></div>
     <script>
         document.getElementById('analyze-form').addEventListener('submit', async function(event) {
             event.preventDefault();
             const imageUrl = document.getElementById('image-url').value;
             const prompt = document.getElementById('prompt').value;
+            
+            document.getElementById('image-preview').src = imageUrl;
+            
             const response = await fetch('/api/analyze_image', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ image_url: imageUrl, prompt: prompt })
             });
+            
             const result = await response.json();
             document.getElementById('result').textContent = JSON.stringify(result, null, 2);
         });
