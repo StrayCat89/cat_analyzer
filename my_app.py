@@ -29,15 +29,14 @@ def analyze_image():
         api_response = response.json()
         print(f"Response from API: {api_response}")
 
-        # Temporarily return the entire response for inspection
-        return jsonify(api_response)
+        # Extract the 'result' field or the actual response from the API
+        answer = api_response.get('result', 'No answer found')
+        
+        return jsonify({"answer": answer})
     except Exception as e:
         print(f"Error in analyze_image: {e}")
         return jsonify({"error": str(e)}), 500
 
-if __name__ != '__main__':
-    # Explicitly define app variable for Vercel
-    app = app
-else:
+if __name__ == '__main__':
     print("Running the app...")
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 8000)))
